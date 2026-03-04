@@ -1,0 +1,9 @@
+[package]
+name = "tictactoe"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clearscreen = "4.0.5"
+system-pause = "0.1.2"
+rand = "0.10.0"
