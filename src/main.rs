@@ -96,7 +96,7 @@ fn main_panel() -> Result<MenuOption, ()> {
     print!("│ 1 - New Game    │   2 - Quit  │\n");
     println!("│                 │             │");
     print!("└───────────────────────────────┘");
-    print!("\nWhat do you wanna do?: ");
+    print!("\nChoose an option: ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut input).unwrap();
     match input.trim(){
@@ -121,15 +121,15 @@ fn sort_player(player1:&mut Player, player2:&mut Player) -> PlayerTurn{
     let mut rng = rand::rng();
     let sorted = rng.random_range(0..=1);
     print!("\n");
-    pause_for_time!(1, "SORTING THE FIRST PLAYER...{}");
+    pause_for_time!(1, "SELECTING STARTING PLAYER...{}");
     if sorted == 0{
-        println!("\n{} you're first!\n", player1.name.to_uppercase());
+        println!("\n{}, you go first!\n", player1.name.to_uppercase());
         pause!("[ENTER TO CONTINUE]");
         player1.symbol = 'X';
         player2.symbol = 'O';
         return PlayerTurn::Player1;
     } else {
-        println!("\n{} you're first!\n", player2.name.to_uppercase());
+        println!("\n{}, you go first!\n", player2.name.to_uppercase());
         pause!("[ENTER TO CONTINUE]");
         player1.symbol = 'O';
         player2.symbol = 'X';
@@ -140,11 +140,11 @@ fn sort_player(player1:&mut Player, player2:&mut Player) -> PlayerTurn{
 fn position_input(player: &Player) -> Result<(usize, usize), ()> {
     let mut x: String = String::new();
     let mut y: String = String::new();
-    println!("\n\n→ {}, YOU'RE TURN! ←\n",player.name.to_uppercase());
-    print!("Type the ROW value: ");
+    println!("\n\n→ {}, YOUR TURN! ←\n",player.name.to_uppercase());
+    print!("Enter ROW (0-2): ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut x).unwrap();
-    print!("Type the COL value: ");
+    print!("Enter COLUMN (0-2): ");
     io::stdout().flush().unwrap();
     io::stdin().read_line(&mut y).unwrap();
     let x: usize = match x.trim().parse() {Ok(num) => num, Err(_) => 3};
@@ -182,7 +182,7 @@ fn insert_grid(x: usize, y: usize, grid: &mut [[char;3];3], player_symbol: char)
 }
 
 fn print_restart_message() {
-    println!("\nIT'S NOT A VALID VALUE!\n");
+    println!("\nINVALID INPUT!\n");
     pause!("[ENTER TO CONTINUE]");
 }
 
@@ -280,7 +280,7 @@ fn print_winner(game_result:&GameResult, player1:&Player, player2:&Player) -> Fl
             return FlowAction::Continue;
         } 
         GameResult::Draw => {
-            println!("\n\n NO WINS! :(  \n");
+            println!("\n\nTIE GAME!\n");
             return FlowAction::Continue;
         }
         _ => {
